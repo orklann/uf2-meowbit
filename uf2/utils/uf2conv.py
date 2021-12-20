@@ -81,7 +81,8 @@ def convert_to_carray(file_content):
     for i in range(len(file_content)):
         if i % 16 == 0:
             outp += "\n"
-        outp += "0x%02x, " % ord(file_content[i])
+        #outp += "0x%02x, " % ord(file_content[i])
+        outp += "0x%02x, " % file_content[i]
     outp += "\n};\n"
     return outp
 
@@ -279,6 +280,8 @@ def main():
             drives = get_drives()
 
         if args.output:
+            if isinstance(outbuf, str):
+                outbuf = str.encode(outbuf)
             write_file(args.output, outbuf)
         else:
             if len(drives) == 0:
